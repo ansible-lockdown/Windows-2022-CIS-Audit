@@ -1,0 +1,20 @@
+---
+
+{{ if .Vars.win22cis_level_1 }}
+  {{ if .Vars.win22cis_rule_18_9_26_1 }}
+registry:
+  HKLM\SOFTWARE\Policies\Microsoft\Windows\System\AllowCustomSSPsAPs:
+    title: "18.9.26.1 | Ensure 'Allow Custom SSPs and APs to be loaded into LSASS' is set to 'Disabled' | AllowCustomSSPsAPs"
+    exists: true
+    value: 0
+    type: REG_DWORD
+    meta:
+      domaincontroller: 1
+      memberserver: 1
+      server: 1
+      CIS_ID:
+        - 18.9.26.1
+      NIST800-53R5:
+        - SI-16
+  {{ end }}
+{{ end }}

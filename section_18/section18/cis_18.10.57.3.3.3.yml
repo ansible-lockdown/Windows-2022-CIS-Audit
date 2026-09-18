@@ -1,0 +1,21 @@
+---
+
+{{ if .Vars.win22cis_level_1 }}
+  {{ if .Vars.win22cis_rule_18_10_57_3_3_3 }}
+registry:
+  HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\fDisableCdm:
+    title: "18.10.57.3.3.3 | Ensure 'Do not allow drive redirection' is set to 'Enabled' | fDisableCdm"
+    exists: true
+    value: 1
+    type: REG_DWORD
+    meta:
+      domaincontroller: 1
+      memberserver: 1
+      server: 1
+      CIS_ID:
+        - 18.10.57.3.3.3
+      NIST800-53R5:
+        - CM-6
+        - CM-7
+  {{ end }}
+{{ end }}

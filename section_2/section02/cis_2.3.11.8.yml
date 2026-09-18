@@ -1,0 +1,24 @@
+---
+
+{{ if .Vars.win22cis_level_1 }}
+  {{ if .Vars.win22cis_rule_2_3_11_8 }}
+registry:
+  HKLM\SYSTEM\CurrentControlSet\Services\Ldap\LDAPClientConfidentiality:
+    title: "2.3.11.8 | Ensure 'Network security: LDAP client encryption requirements' is set to 'Negotiate sealing' or higher | LDAPClientConfidentiality"
+    exists: true
+    value: {{ .Vars.win22cis_ldap_client_confidentiality }}
+    type: REG_DWORD
+    meta:
+      domaincontroller: 1
+      memberserver: 1
+      server: 1
+      CIS_ID:
+        - 2.3.11.8
+      NIST800-53R5:
+        - AC-17(2)
+        - IA-5
+        - IA-5(1)
+        - SC-8
+        - SC-8(1)
+  {{ end }}
+{{ end }}

@@ -1,0 +1,29 @@
+---
+
+{{ if .Vars.win22cis_level_1 }}
+  {{ if .Vars.win22cis_rule_18_4_6 }}
+registry:
+  HKLM\SYSTEM\CurrentControlSet\Services\NetBT\Parameters\NodeType:
+    title: "18.4.6 | Ensure 'NetBT NodeType configuration' is set to 'Enabled: P-node (recommended)' | NodeType"
+    exists: true
+    value: {{ .Vars.win22cis_netbt_nodetype }}
+    type: REG_DWORD
+    meta:
+      domaincontroller: 1
+      memberserver: 1
+      server: 1
+      CIS_ID:
+        - 18.4.6
+      NIST800-53R5:
+        - CM-1
+        - CM-2
+        - AC-2
+        - CM-6
+        - CM-7
+        - CM-7(1)
+        - CM-9
+        - SA-3
+        - SA-8
+        - SA-10
+  {{ end }}
+{{ end }}
