@@ -2,7 +2,7 @@
 
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_2 }}
   {{ if .Vars.win22cis_rule_18_9_36_2 }}
-    {{ if eq .Vars.win22cis_system_role "memberserver" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 registry:
   HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Rpc\RestrictRemoteClients:
     title: "18.9.36.2 | Ensure 'Restrict Unauthenticated RPC clients' is set to 'Enabled: Authenticated' (MS only) | RestrictRemoteClients"

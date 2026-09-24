@@ -1,5 +1,10 @@
 # Changes to Windows-2022-CIS-Audit
 
+## September 2026 - stand-alone servers
+
+- 18 MS only controls asserted on any server that is not a domain controller
+- README: stand-alone server scope
+
 ## September 2026 - NIST and domain members
 
 - NIST800-53R5 added to meta, taken from the role's NIST tags

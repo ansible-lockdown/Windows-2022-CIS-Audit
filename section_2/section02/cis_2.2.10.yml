@@ -2,7 +2,7 @@
 
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_10 }}
-    {{ if eq .Vars.win22cis_system_role "memberserver" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 file:
   win22cis_2_2_10_seremoteinteractivelogonright:
     title: "2.2.10 | Ensure 'Allow log on through Remote Desktop Services' is set to 'Administrators, Remote Desktop Users' (MS only) | SeRemoteInteractiveLogonRight"

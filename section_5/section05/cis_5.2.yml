@@ -3,7 +3,6 @@
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_2 }}
   {{ if .Vars.win22cis_rule_5_2 }}
     {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
-      {{ if ne .Vars.win22cis_system_role "standalone" }}
 file:
   win22cis_5_2_spooler:
     title: "5.2 | Ensure 'Print Spooler (Spooler)' is set to 'Disabled' (MS only) | Spooler"
@@ -19,7 +18,6 @@ file:
       NIST800-53R5:
         - CM-6
         - CM-7
-      {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}

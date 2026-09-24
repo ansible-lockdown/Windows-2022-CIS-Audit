@@ -2,7 +2,7 @@
 
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_1_2_3 }}
-    {{ if eq .Vars.win22cis_system_role "memberserver" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 file:
   win22cis_1_2_3_allowadministratorlockout:
     title: "1.2.3 | Ensure 'Allow Administrator account lockout' is set to 'Enabled' (MS only) | AllowAdministratorLockout"

@@ -2,7 +2,7 @@
 
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_ngws }}
   {{ if .Vars.win22cis_rule_18_9_5_5 }}
-    {{ if eq .Vars.win22cis_system_role "memberserver" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 registry:
   HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\LsaCfgFlags:
     title: "18.9.5.5 | (NG) Ensure 'Turn On Virtualization Based Security: Credential Guard Configuration' is set to 'Enabled with UEFI lock' (MS Only) | LsaCfgFlags"

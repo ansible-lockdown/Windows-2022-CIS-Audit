@@ -39,7 +39,11 @@ it. The generated gates use the cross product, and collapse to a bare level gate
 for the 388 controls that apply identically to both roles.
 
 CIS treats any server that is not a domain controller as a Member Server,
-standalone included.
+standalone included. The audit follows the remediation role: 18 of the MS only
+controls are asserted on any server that is not a domain controller. The ones
+that would cut off remote administration of a standalone server (2.2.22, 2.2.27,
+18.4.1) or need a domain (LAPS, the Netlogon secure channel, cached domain logons)
+are asserted on a member server only.
 
 ## What this audit asserts, and what it deliberately does not
 

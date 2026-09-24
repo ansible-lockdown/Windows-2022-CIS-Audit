@@ -2,7 +2,7 @@
 
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_33 }}
-    {{ if eq .Vars.win22cis_system_role "memberserver" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 file:
   win22cis_2_2_33_seimpersonateprivilege:
     title: "2.2.33 | Ensure 'Impersonate a client after authentication' is set to 'Administrators, LOCAL SERVICE, NETWORK SERVICE, SERVICE' and (when the Web Server (IIS) Role with Web Services Role Service is installed) 'IIS_IUSRS' (MS only) | SeImpersonatePrivilege"

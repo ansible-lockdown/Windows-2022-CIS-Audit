@@ -2,7 +2,7 @@
 
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_3_10_7 }}
-    {{ if eq .Vars.win22cis_system_role "memberserver" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 registry:
   HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters\NullSessionPipes:
     title: "2.3.10.7 | Ensure 'Network access: Named Pipes that can be accessed anonymously' is configured (MS only) | NullSessionPipes"

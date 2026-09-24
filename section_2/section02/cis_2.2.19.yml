@@ -2,7 +2,7 @@
 
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_19 }}
-    {{ if eq .Vars.win22cis_system_role "memberserver" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 file:
   win22cis_2_2_19_secreatesymboliclinkprivilege:
     title: "2.2.19 | Ensure 'Create symbolic links' is set to 'Administrators, NT VIRTUAL MACHINE\\Virtual Machines' (MS only) | SeCreateSymbolicLinkPrivilege"

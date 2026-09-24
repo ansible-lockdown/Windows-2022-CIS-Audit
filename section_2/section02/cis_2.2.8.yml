@@ -2,7 +2,7 @@
 
 {{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_8 }}
-    {{ if eq .Vars.win22cis_system_role "memberserver" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 file:
   win22cis_2_2_8_seinteractivelogonright:
     title: "2.2.8 | Ensure 'Allow log on locally' is set to 'Administrators' (MS only) | SeInteractiveLogonRight"
