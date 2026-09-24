@@ -1,5 +1,10 @@
 # Changes to Windows-2022-CIS-Audit
 
+## September 2026 - spec folders
+
+- spec folders follow the role's new task files, e.g. section_2/section02 -> section_2/section_2.2
+- stale manifest entries for the old paths removed
+
 ## September 2026 - stand-alone servers
 
 - 18 MS only controls asserted on any server that is not a domain controller
