@@ -1,5 +1,12 @@
 # Changes to Windows-2022-CIS-Audit
 
+## CIS Benchmark v4.0.0
+## October 2026 - QA fixes
+
+- 2.3.5.2 asserts VulnerableChannelAllowList is absent
+- 18.4.4 asserts the Wow6432Node EnableCertPaddingCheck value
+- 2.3.6.x asserted on domain controllers
+
 ## September 2026 - spec folders
 
 - spec folders follow the role's new task files, e.g. section_2/section02 -> section_2/section_2.2
