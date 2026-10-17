@@ -6,6 +6,8 @@
 - 2.3.5.2 asserts VulnerableChannelAllowList is absent
 - 18.4.4 asserts the Wow6432Node EnableCertPaddingCheck value
 - 2.3.6.x asserted on domain controllers
+- 17.x audit policy collected from auditpol /backup by GUID, any display language
+- 17.x spec titles name the subcategory
 
 ## September 2026 - spec folders
 

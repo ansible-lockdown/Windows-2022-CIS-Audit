@@ -237,58 +237,29 @@ function New-PolicySnapshot {
 
     $areasDone.Add('SECURITYPOLICY'); $areasDone.Add('USER_RIGHTS')
 
-    # ---- auditpol: one call covering every subcategory ----
-    # /r gives: Machine Name,Policy Target,Subcategory,Subcategory GUID,
-    #           Inclusion Setting,Exclusion Setting
-    # The inclusion setting is text, not a number, and both it and the
-    # subcategory name are localised. The collector turns the text into the
-    # numeric CIS talks in, so the 27 spec files stay locale-independent, and
-    # records the GUID beside it so a localised host can be pinned by GUID later.
-    # An unrecognised setting is recorded verbatim, which fails loudly rather
-    # than passing on an unread value.
-    $inclusionToValue = @{
-        'No Auditing'         = 0
-        'Success'             = 1
-        'Failure'             = 2
-        'Success and Failure' = 3
-    }
-    $auditByName = @{}
-    $guidByName = @{}
-    # The CIS Server 2022 role calls auditpol by subcategory GUID, not by name,
-    # so collector_targets.json holds GUIDs. Keying only by name would miss all
-    # 34 section 17 targets and record every one as ABSENT - a mass false
-    # failure that reads like a catastrophically non-compliant host. auditpol
-    # emits the GUID upper-case and the role writes it lower-case, so the key is
-    # normalised rather than compared verbatim.
+    # ---- auditpol: one backup covering every subcategory ----
+    # The backup CSV ends each row with the numeric Setting Value CIS talks in
+    # (0 none, 1 success, 2 failure, 3 both) and carries the subcategory GUID.
+    # Subcategory names, headers and the inclusion text are all localised, so
+    # each row is read by GUID and trailing number, never by name or column
+    # header, and the collector works on any display language. auditpol writes
+    # the GUID upper-case and the role lower-case, so the key is normalised.
     $auditByGuid = @{}
-    foreach ($row in @(& auditpol /get /category:* /r 2>$null)) {
-        if ([string]::IsNullOrWhiteSpace($row)) { continue }
-        $fields = $row.Split(',')
-        if ($fields.Count -lt 5) { continue }
-        $name = $fields[2].Trim()
-        if ($name -eq 'Subcategory') { continue }
-        $inclusion = $fields[4].Trim()
-        $guid = $fields[3].Trim()
-        $guidByName[$name] = $guid
-        if ($inclusionToValue.ContainsKey($inclusion)) {
-            $value = $inclusionToValue[$inclusion]
-        } else {
-            $value = "UNKNOWN=$inclusion"
+    $backup = Join-Path $env:TEMP 'lockdown_audit_auditpol.csv'
+    & auditpol /backup /file:"$backup" | Out-Null
+    if (Test-Path -LiteralPath $backup) {
+        foreach ($row in Get-Content -LiteralPath $backup) {
+            if ($row -match '(\{[0-9A-Fa-f-]{36}\}).*,(\d+)\s*$') {
+                $auditByGuid[(Normalize-AuditGuid $Matches[1])] = [int]$Matches[2]
+            }
         }
-        $auditByName[$name] = $value
-        $auditByGuid[(Normalize-AuditGuid $guid)] = $value
+        Remove-Item -LiteralPath $backup -Force -ErrorAction SilentlyContinue
     }
     foreach ($target in $targets.auditpol) {
-        # GUID first, because this benchmark's targets are GUIDs and the GUID
-        # is locale-independent; fall back to the name for a benchmark that
-        # still uses names.
-        $guidKey = Normalize-AuditGuid $target.subcategory
-        if ($auditByGuid.ContainsKey($guidKey)) {
+        $guidKey = Normalize-AuditGuid $target.guid
+        if ($guidKey -and $auditByGuid.ContainsKey($guidKey)) {
             $lines.Add("AuditPolicy.$($target.rule)=$($auditByGuid[$guidKey])")
-            $lines.Add("AuditPolicyGuid.$($target.rule)=$($target.subcategory)")
-        } elseif ($auditByName.ContainsKey($target.subcategory)) {
-            $lines.Add("AuditPolicy.$($target.rule)=$($auditByName[$target.subcategory])")
-            $lines.Add("AuditPolicyGuid.$($target.rule)=$($guidByName[$target.subcategory])")
+            $lines.Add("AuditPolicyGuid.$($target.rule)=$($target.guid)")
         } else {
             $lines.Add("AuditPolicy.$($target.rule)=ABSENT")
         }
