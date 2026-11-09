@@ -3,9 +3,9 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_42 }}
 file:
-  win22cis_2_2_42_semanagevolumeprivilege:
-    title: "2.2.42 | Ensure 'Perform volume maintenance tasks' is set to 'Administrators' | SeManageVolumePrivilege"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeManageVolumePrivilege'
+  win22cis_2_2_42_seprofilesingleprocessprivilege:
+    title: "2.2.42 | Ensure 'Profile single process' is set to 'Administrators' | SeProfileSingleProcessPrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeProfileSingleProcessPrivilege'
     exists: true
     contents:
       - '/^S-1-5-32-544$/'

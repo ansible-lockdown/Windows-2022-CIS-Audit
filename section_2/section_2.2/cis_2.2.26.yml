@@ -1,19 +1,19 @@
 ---
 
-{{ if and (eq .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
+{{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_26 }}
-    {{ if eq .Vars.win22cis_system_role "domaincontroller" }}
+    {{ if eq .Vars.win22cis_system_role "memberserver" }}
 file:
   win22cis_2_2_26_sedenyremoteinteractivelogonright:
-    title: "2.2.26 | Ensure 'Deny log on through Remote Desktop Services' to include 'Guests' (DC only) | SeDenyRemoteInteractiveLogonRight"
+    title: "2.2.26 | Ensure 'Deny log on through Remote Desktop Services' is set to 'Guests, Local account' (MS only) | SeDenyRemoteInteractiveLogonRight"
     path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeDenyRemoteInteractiveLogonRight'
     exists: true
     contents:
-      - '/^(.*,)?S-1-5-32-546(,.*)?$/'
+      - '/^S-1-5-113,S-1-5-32-546$/'
     skip: {{ if not .Vars.win22cis_win_skip_for_test }}false{{ else }}true{{ end }}
     meta:
       skip_reason: "win_skip_for_test is set - the role leaves this control alone so the managing connection survives; set win_skip_for_test: false to apply it"
-      domaincontroller: 1
+      memberserver: 1
       server: 1
       CIS_ID:
         - 2.2.26

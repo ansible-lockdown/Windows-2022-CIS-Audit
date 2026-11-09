@@ -3,10 +3,10 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_3_11_11 }}
 registry:
-  HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Msv1_0\NTLMMinServerSec:
-    title: "2.3.11.11 | Ensure 'Network security: Minimum session security for NTLM SSP based (including secure RPC) servers' is set to 'Require NTLMv2 session security, Require 128-bit encryption' | NTLMMinServerSec"
+  HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0\AuditReceivingNTLMTraffic:
+    title: "2.3.11.11 | Ensure 'Network security: Restrict NTLM: Audit Incoming NTLM Traffic' is set to 'Enable auditing for all accounts' | AuditReceivingNTLMTraffic"
     exists: true
-    value: 537395200
+    value: 2
     type: REG_DWORD
     meta:
       domaincontroller: 1
@@ -15,10 +15,9 @@ registry:
       CIS_ID:
         - 2.3.11.11
       NIST800-53R5:
-        - AC-17(2)
-        - IA-5
-        - IA-5(1)
-        - SC-8
-        - SC-8(1)
+        - AU-3
+        - AU-3(1)
+        - AU-7
+        - AU-12
   {{ end }}
 {{ end }}

@@ -3,12 +3,12 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_35 }}
 file:
-  win22cis_2_2_35_seloaddriverprivilege:
-    title: "2.2.35 | Ensure 'Load and unload device drivers' is set to 'Administrators' | SeLoadDriverPrivilege"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeLoadDriverPrivilege'
+  win22cis_2_2_35_selockmemoryprivilege:
+    title: "2.2.35 | Ensure 'Lock pages in memory' is set to 'No One' | SeLockMemoryPrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeLockMemoryPrivilege'
     exists: true
     contents:
-      - '/^S-1-5-32-544$/'
+      - '/^NONE$/'
     meta:
       domaincontroller: 1
       memberserver: 1

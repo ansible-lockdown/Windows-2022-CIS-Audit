@@ -3,12 +3,12 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_40 }}
 file:
-  win22cis_2_2_40_serelabelprivilege:
-    title: "2.2.40 | Ensure 'Modify an object label' is set to 'No One' | SeReLabelPrivilege"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeReLabelPrivilege'
+  win22cis_2_2_40_sesystemenvironmentprivilege:
+    title: "2.2.40 | Ensure 'Modify firmware environment values' is set to 'Administrators' | SeSystemEnvironmentPrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeSystemEnvironmentPrivilege'
     exists: true
     contents:
-      - '/^NONE$/'
+      - '/^S-1-5-32-544$/'
     meta:
       domaincontroller: 1
       memberserver: 1

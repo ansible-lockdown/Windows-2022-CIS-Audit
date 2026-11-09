@@ -2,7 +2,7 @@
 
 ## Overview
 
-### Based on CIS Microsoft Windows Server 2022 Benchmark v4.0.0
+### Based on CIS Microsoft Windows Server 2022 Benchmark v5.1.1
 
 [Centre For Internet Security]
 
@@ -27,21 +27,19 @@ regeneration and the candidate written to a gitignored `.regen/` instead.
 
 ## Server profiles
 
-A Server benchmark splits by host role as well as by level. Of the 462
-recommendations, 395 apply to both a domain controller and a member server, 31
-are DC only and 36 are MS only. `win22cis_system_role` selects which, and
+A Server benchmark splits by host role as well as by level. Of the 408
+recommendations, 343 apply to both a domain controller and a member server, 30
+are DC only and 35 are MS only. `win22cis_system_role` selects which, and
 `run_audit.ps1` derives it from `Win32_ComputerSystem.DomainRole` rather than
 asking for it, so it cannot silently disagree with the host.
 
-The two axes do not factor. Control 18.7.1 is Level 1 on a domain controller and
-Level 2 on a member server, so no pair of role and level booleans can express
-it. The generated gates use the cross product, and collapse to a bare level gate
-for the 388 controls that apply identically to both roles.
+The generated gates combine role and level, and collapse to a bare level gate
+for the 341 asserted controls that apply identically to both roles.
 
 CIS treats any server that is not a domain controller as a Member Server,
-standalone included. The audit follows the remediation role: 18 of the MS only
+standalone included. The audit follows the remediation role: 19 of the MS only
 controls are asserted on any server that is not a domain controller. The ones
-that would cut off remote administration of a standalone server (2.2.22, 2.2.27,
+that would cut off remote administration of a standalone server (2.2.21, 2.2.26,
 18.4.1) or need a domain (LAPS, the Netlogon secure channel, cached domain logons)
 are asserted on a member server only.
 
@@ -138,14 +136,13 @@ behind takes out all 1200+ assertions.
 
 ## Expected failures
 
-A control the remediation role deliberately skips will fail here, and that is
-correct. `win_skip_for_test` in the role skips the WinRM block, RDP deny logon,
-the public firewall profile, the administrator rename, and the two network logon
-rights that would otherwise sever the control connection. Those show as failures
-until the role is run with `win_skip_for_test: false`.
+`win_skip_for_test` in the role skips the WinRM block, RDP deny logon, the public
+firewall profile, the administrator rename, and the two network logon rights that
+would otherwise sever the control connection. The audit reports those controls as
+skipped, with the reason, until the role is run with `win_skip_for_test: false`.
 
 Some controls name a principal that only exists when an optional feature is
-installed - Hyper-V for 2.2.19, IIS for 2.2.33, Exchange for 2.2.38. The
+installed - Hyper-V for 2.2.18, IIS for 2.2.32, Exchange for 2.2.37. The
 feature-dependent principal is matched as an optional group, so these pass on a
 host with the feature and on one without it. That is deliberately lenient in one
 direction: a host that grants the principal without having the feature also
@@ -157,19 +154,19 @@ version can assert the exact membership per branch.
 | Section | In benchmark | Asserted | Coverage |
 | --- | --- | --- | --- |
 | 1 | 11 | 11 | 100% |
-| 2 | 122 | 119 | 98% |
+| 2 | 118 | 115 | 97% |
 | 5 | 2 | 2 | 100% |
 | 9 | 23 | 23 | 100% |
 | 17 | 34 | 34 | 100% |
-| 18 | 240 | 240 | 100% |
-| 19 | 12 | 12 | 100% |
-| **All** | **444** | **441** | **99.3%** |
+| 18 | 209 | 209 | 100% |
+| 19 | 11 | 11 | 100% |
+| **All** | **408** | **405** | **99.3%** |
 
 ### Not asserted
 
 | Rule | Title | Reason |
 | --- | --- | --- |
-| 2.2.34 | Ensure 'Increase scheduling priority' is set to 'Administrators, Window Manager\Window Manager Group' | NO_ASSERTABLE_STATE |
+| 2.2.33 | Ensure 'Increase scheduling priority' is set to 'Administrators, Window Manager\Window Manager Group' | NO_ASSERTABLE_STATE |
 | 2.3.5.4 | Ensure 'Domain controller: LDAP server signing requirements' is set to 'Require signing' (DC only) | NO_ASSERTABLE_STATE |
 | 2.3.10.9 | Ensure 'Network access: Remotely accessible registry paths and sub-paths' is configured | NO_ASSERTABLE_STATE |
 
@@ -181,7 +178,7 @@ an account has been renamed, what a site variable was set to. Each
 asserts the part that holds on every host; the feature-dependent
 part is matched optionally rather than required.
 
-2.2.19, 2.2.33, 2.2.38, 2.3.1.3, 2.3.1.4
+2.2.18, 2.2.32, 2.2.37, 2.3.1.3, 2.3.1.4
 
 <!-- END COVERAGE -->
 

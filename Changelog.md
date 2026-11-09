@@ -1,5 +1,16 @@
 # Changes to Windows-2022-CIS-Audit
 
+## CIS Benchmark v5.1.1
+## November 2026 - benchmark v5.1.1
+
+- regenerated for v5.1.1, 405 of 408 controls asserted
+- 39 retired controls removed
+- 118 controls renumbered, spec folders moved to match
+- 18.9.17.1, 18.11.1 and 18.11.2 added
+- 17.8.1 asserts Success only
+- run_audit.ps1 benchmark version 5.1.1
+- README - v5.1.1 counts and control IDs
+
 ## CIS Benchmark v4.0.0
 ## October 2026 - QA fixes
 

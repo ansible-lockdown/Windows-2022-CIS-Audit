@@ -1,0 +1,22 @@
+---
+
+{{ if and (eq .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
+  {{ if .Vars.win22cis_rule_18_9_41_1 }}
+    {{ if eq .Vars.win22cis_system_role "domaincontroller" }}
+registry:
+  HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\SAM\SamNGCKeyROCAValidation:
+    title: "18.9.41.1 | Ensure 'Configure validation of ROCA-vulnerable WHfB keys during authentication' is set to 'Enabled: Block' (DC only) | SamNGCKeyROCAValidation"
+    exists: true
+    value: {{ .Vars.win22cis_roca_configuration }}
+    type: REG_DWORD
+    meta:
+      domaincontroller: 1
+      server: 1
+      CIS_ID:
+        - 18.9.41.1
+      NIST800-53R5:
+        - SC-39
+        - SI-16
+    {{ end }}
+  {{ end }}
+{{ end }}

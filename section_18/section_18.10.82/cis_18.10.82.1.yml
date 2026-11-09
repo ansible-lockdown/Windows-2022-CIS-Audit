@@ -3,8 +3,8 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_18_10_82_1 }}
 registry:
-  HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\EnableMPR:
-    title: "18.10.82.1 | Ensure 'Configure the transmission of the user's password in the content of MPR notifications sent by winlogon.' is set to 'Disabled' | EnableMPR"
+  HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer\EnableUserControl:
+    title: "18.10.82.1 | Ensure 'Allow user control over installs' is set to 'Disabled' | EnableUserControl"
     exists: true
     value: 0
     type: REG_DWORD
@@ -15,7 +15,6 @@ registry:
       CIS_ID:
         - 18.10.82.1
       NIST800-53R5:
-        - CM-6
-        - CM-7
+        - AC-6(10)
   {{ end }}
 {{ end }}

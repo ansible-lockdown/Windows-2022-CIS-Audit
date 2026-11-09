@@ -1,20 +1,21 @@
 ---
 
-{{ if .Vars.win22cis_ngws }}
+{{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_18_9_26_2 }}
+    {{ if eq .Vars.win22cis_system_role "memberserver" }}
 registry:
-  HKLM\SOFTWARE\Policies\Microsoft\Windows\System\RunAsPPL:
-    title: "18.9.26.2 | (NG) Ensure 'Configures LSASS to run as a protected process' is set to 'Enabled: Enabled with UEFI Lock' | RunAsPPL"
+  HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS\PasswordExpirationProtectionEnabled:
+    title: "18.9.26.2 | Ensure 'Do not allow password expiration time longer than required by policy' is set to 'Enabled' (MS only) | PasswordExpirationProtectionEnabled"
     exists: true
     value: 1
     type: REG_DWORD
     meta:
-      domaincontroller: 1
       memberserver: 1
       server: 1
       CIS_ID:
         - 18.9.26.2
       NIST800-53R5:
-        - SI-16
+        - IA-5(1)(d)
+    {{ end }}
   {{ end }}
 {{ end }}

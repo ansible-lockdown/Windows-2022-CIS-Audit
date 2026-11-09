@@ -1,17 +1,17 @@
 ---
 
-{{ if and (eq .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
+{{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_38 }}
-    {{ if eq .Vars.win22cis_system_role "domaincontroller" }}
+    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 file:
   win22cis_2_2_38_sesecurityprivilege:
-    title: "2.2.38 | Ensure 'Manage auditing and security log' is set to 'Administrators' (DC only) | SeSecurityPrivilege"
+    title: "2.2.38 | Ensure 'Manage auditing and security log' is set to 'Administrators' (MS only) | SeSecurityPrivilege"
     path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeSecurityPrivilege'
     exists: true
     contents:
-      - '/^(NAME:Exchange Servers,)?S-1-5-32-544$/'
+      - '/^S-1-5-32-544$/'
     meta:
-      domaincontroller: 1
+      memberserver: 1
       server: 1
       CIS_ID:
         - 2.2.38

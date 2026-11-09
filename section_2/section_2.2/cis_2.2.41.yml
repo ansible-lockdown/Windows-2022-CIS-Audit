@@ -3,9 +3,9 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_41 }}
 file:
-  win22cis_2_2_41_sesystemenvironmentprivilege:
-    title: "2.2.41 | Ensure 'Modify firmware environment values' is set to 'Administrators' | SeSystemEnvironmentPrivilege"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeSystemEnvironmentPrivilege'
+  win22cis_2_2_41_semanagevolumeprivilege:
+    title: "2.2.41 | Ensure 'Perform volume maintenance tasks' is set to 'Administrators' | SeManageVolumePrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeManageVolumePrivilege'
     exists: true
     contents:
       - '/^S-1-5-32-544$/'

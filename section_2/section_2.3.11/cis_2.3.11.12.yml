@@ -1,16 +1,16 @@
 ---
 
-{{ if .Vars.win22cis_level_1 }}
+{{ if and (eq .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_3_11_12 }}
+    {{ if eq .Vars.win22cis_system_role "domaincontroller" }}
 registry:
-  HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0\AuditReceivingNTLMTraffic:
-    title: "2.3.11.12 | Ensure 'Network security: Restrict NTLM: Audit Incoming NTLM Traffic' is set to 'Enable auditing for all accounts' | AuditReceivingNTLMTraffic"
+  HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\AuditNTLMInDomain:
+    title: "2.3.11.12 | Ensure 'Network security: Restrict NTLM: Audit NTLM authentication in this domain' is set to 'Enable all' (DC only) | AuditNTLMInDomain"
     exists: true
-    value: 2
+    value: 7
     type: REG_DWORD
     meta:
       domaincontroller: 1
-      memberserver: 1
       server: 1
       CIS_ID:
         - 2.3.11.12
@@ -19,5 +19,6 @@ registry:
         - AU-3(1)
         - AU-7
         - AU-12
+    {{ end }}
   {{ end }}
 {{ end }}

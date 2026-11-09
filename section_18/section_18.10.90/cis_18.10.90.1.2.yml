@@ -1,0 +1,26 @@
+---
+
+{{ if .Vars.win22cis_level_1 }}
+  {{ if .Vars.win22cis_rule_18_10_90_1_2 }}
+registry:
+  HKLM\SOFTWARE\Policies\Microsoft\Windows\Winrm\Client\AllowUnencryptedTraffic:
+    title: "18.10.90.1.2 | Ensure 'Allow unencrypted traffic' is set to 'Disabled' | AllowUnencryptedTraffic"
+    exists: true
+    value: 0
+    type: REG_DWORD
+    skip: {{ if not .Vars.win22cis_win_skip_for_test }}false{{ else }}true{{ end }}
+    meta:
+      skip_reason: "win_skip_for_test is set - the role leaves this control alone so the managing connection survives; set win_skip_for_test: false to apply it"
+      domaincontroller: 1
+      memberserver: 1
+      server: 1
+      CIS_ID:
+        - 18.10.90.1.2
+      NIST800-53R5:
+        - AC-17(2)
+        - IA-5
+        - IA-5(1)
+        - SC-8
+        - SC-9(1)
+  {{ end }}
+{{ end }}

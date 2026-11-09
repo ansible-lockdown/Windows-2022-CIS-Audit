@@ -1,20 +1,21 @@
 ---
 
-{{ if .Vars.win22cis_level_1 }}
+{{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_18_9_26_1 }}
+    {{ if eq .Vars.win22cis_system_role "memberserver" }}
 registry:
-  HKLM\SOFTWARE\Policies\Microsoft\Windows\System\AllowCustomSSPsAPs:
-    title: "18.9.26.1 | Ensure 'Allow Custom SSPs and APs to be loaded into LSASS' is set to 'Disabled' | AllowCustomSSPsAPs"
+  HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS\BackupDirectory:
+    title: "18.9.26.1 | Ensure 'Configure password backup directory' is set to 'Enabled: Active Directory' or 'Enabled: Azure Active Directory' (MS only) | BackupDirectory"
     exists: true
-    value: 0
+    value: {{ .Vars.win22cis_laps_backupdirectory_value }}
     type: REG_DWORD
     meta:
-      domaincontroller: 1
       memberserver: 1
       server: 1
       CIS_ID:
         - 18.9.26.1
       NIST800-53R5:
-        - SI-16
+        - CP-9
+    {{ end }}
   {{ end }}
 {{ end }}

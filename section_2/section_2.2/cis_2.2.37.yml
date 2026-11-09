@@ -1,18 +1,18 @@
 ---
 
-{{ if and (eq .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_2 }}
+{{ if and (eq .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_37 }}
     {{ if eq .Vars.win22cis_system_role "domaincontroller" }}
 file:
-  win22cis_2_2_37_sebatchlogonright:
-    title: "2.2.37 | Ensure 'Log on as a batch job' is set to 'Administrators' (DC Only) | SeBatchLogonRight"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeBatchLogonRight'
+  win22cis_2_2_37_sesecurityprivilege:
+    title: "2.2.37 | Ensure 'Manage auditing and security log' is set to 'Administrators' (DC only) | SeSecurityPrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeSecurityPrivilege'
     exists: true
     contents:
-      - '/^S-1-5-32-544$/'
+      - '/^(NAME:Exchange Servers,)?S-1-5-32-544$/'
     meta:
-      domaincontroller: 2
-      server: 2
+      domaincontroller: 1
+      server: 1
       CIS_ID:
         - 2.2.37
       NIST800-53R5:

@@ -3,12 +3,12 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_43 }}
 file:
-  win22cis_2_2_43_seprofilesingleprocessprivilege:
-    title: "2.2.43 | Ensure 'Profile single process' is set to 'Administrators' | SeProfileSingleProcessPrivilege"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeProfileSingleProcessPrivilege'
+  win22cis_2_2_43_sesystemprofileprivilege:
+    title: "2.2.43 | Ensure 'Profile system performance' is set to 'Administrators, NT SERVICE\\WdiServiceHost' | SeSystemProfilePrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeSystemProfilePrivilege'
     exists: true
     contents:
-      - '/^S-1-5-32-544$/'
+      - '/^S-1-5-32-544,S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420$/'
     meta:
       domaincontroller: 1
       memberserver: 1

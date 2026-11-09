@@ -3,9 +3,9 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_46 }}
 file:
-  win22cis_2_2_46_serestoreprivilege:
-    title: "2.2.46 | Ensure 'Restore files and directories' is set to 'Administrators' | SeRestorePrivilege"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeRestorePrivilege'
+  win22cis_2_2_46_seshutdownprivilege:
+    title: "2.2.46 | Ensure 'Shut down the system' is set to 'Administrators' | SeShutdownPrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeShutdownPrivilege'
     exists: true
     contents:
       - '/^S-1-5-32-544$/'

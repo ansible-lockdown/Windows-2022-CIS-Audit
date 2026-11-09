@@ -3,10 +3,10 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_3_11_9 }}
 registry:
-  HKLM\SYSTEM\CurrentControlSet\Services\Ldap\LDAPClientIntegrity:
-    title: "2.3.11.9 | Ensure 'Network security: LDAP client signing requirements' is set to 'Negotiate signing' or higher | LDAPClientIntegrity"
+  HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Msv1_0\NTLMMinClientSec:
+    title: "2.3.11.9 | Ensure 'Network security: Minimum session security for NTLM SSP based (including secure RPC) clients' is set to 'Require NTLMv2 session security, Require 128-bit encryption' | NTLMMinClientSec"
     exists: true
-    value: {{ .Vars.win22cis_ldap_client_integrity }}
+    value: 537395200
     type: REG_DWORD
     meta:
       domaincontroller: 1

@@ -1,17 +1,17 @@
 ---
 
-{{ if and (eq .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
+{{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_48 }}
-    {{ if eq .Vars.win22cis_system_role "domaincontroller" }}
 file:
-  win22cis_2_2_48_sesyncagentprivilege:
-    title: "2.2.48 | Ensure 'Synchronize directory service data' is set to 'No One' (DC only) | SeSyncAgentPrivilege"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeSyncAgentPrivilege'
+  win22cis_2_2_48_setakeownershipprivilege:
+    title: "2.2.48 | Ensure 'Take ownership of files or other objects' is set to 'Administrators' | SeTakeOwnershipPrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeTakeOwnershipPrivilege'
     exists: true
     contents:
-      - '/^NONE$/'
+      - '/^S-1-5-32-544$/'
     meta:
       domaincontroller: 1
+      memberserver: 1
       server: 1
       CIS_ID:
         - 2.2.48
@@ -22,6 +22,5 @@ file:
         - AC-6(1)
         - AC-6(7)
         - AU-9(4)
-    {{ end }}
   {{ end }}
 {{ end }}

@@ -3,10 +3,10 @@
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_3_11_8 }}
 registry:
-  HKLM\SYSTEM\CurrentControlSet\Services\Ldap\LDAPClientConfidentiality:
-    title: "2.3.11.8 | Ensure 'Network security: LDAP client encryption requirements' is set to 'Negotiate sealing' or higher | LDAPClientConfidentiality"
+  HKLM\SYSTEM\CurrentControlSet\Services\Ldap\LDAPClientIntegrity:
+    title: "2.3.11.8 | Ensure 'Network security: LDAP client signing requirements' is set to 'Negotiate signing' or higher | LDAPClientIntegrity"
     exists: true
-    value: {{ .Vars.win22cis_ldap_client_confidentiality }}
+    value: {{ .Vars.win22cis_ldap_client_integrity }}
     type: REG_DWORD
     meta:
       domaincontroller: 1

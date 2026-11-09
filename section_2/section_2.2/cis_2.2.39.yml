@@ -1,16 +1,16 @@
 ---
 
-{{ if and (ne .Vars.win22cis_system_role "domaincontroller") .Vars.win22cis_level_1 }}
+{{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_2_39 }}
-    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 file:
-  win22cis_2_2_39_sesecurityprivilege:
-    title: "2.2.39 | Ensure 'Manage auditing and security log' is set to 'Administrators' (MS only) | SeSecurityPrivilege"
-    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeSecurityPrivilege'
+  win22cis_2_2_39_serelabelprivilege:
+    title: "2.2.39 | Ensure 'Modify an object label' is set to 'No One' | SeReLabelPrivilege"
+    path: '{{ .Vars.win22cis_snapshot_dir }}\PrivilegeRights.SeReLabelPrivilege'
     exists: true
     contents:
-      - '/^S-1-5-32-544$/'
+      - '/^NONE$/'
     meta:
+      domaincontroller: 1
       memberserver: 1
       server: 1
       CIS_ID:
@@ -22,6 +22,5 @@ file:
         - AC-6(1)
         - AC-6(7)
         - AU-9(4)
-    {{ end }}
   {{ end }}
 {{ end }}
