@@ -2,7 +2,6 @@
 
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_3_6_6 }}
-    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
 registry:
   HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\RequireStrongKey:
     title: "2.3.6.6 | Ensure 'Domain member: Require strong (Windows 2000 or later) session key' is set to 'Enabled' | RequireStrongKey"
@@ -21,6 +20,5 @@ registry:
         - IA-5(1)
         - SC-8
         - SC-8(1)
-    {{ end }}
   {{ end }}
 {{ end }}

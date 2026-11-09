@@ -2,8 +2,7 @@
 
 {{ if .Vars.win22cis_level_1 }}
   {{ if .Vars.win22cis_rule_2_3_6_2 }}
-    {{ if ne .Vars.win22cis_system_role "domaincontroller" }}
-      {{ if ne .Vars.win22cis_system_role "standalone" }}
+    {{ if ne .Vars.win22cis_system_role "standalone" }}
 registry:
   HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\SealSecureChannel:
     title: "2.3.6.2 | Ensure 'Domain member: Digitally encrypt secure channel data (when possible)' is set to 'Enabled' | SealSecureChannel"
@@ -22,7 +21,6 @@ registry:
         - IA-5(1)
         - SC-8
         - SC-8(1)
-      {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
