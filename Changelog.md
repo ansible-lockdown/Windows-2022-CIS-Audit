@@ -8,6 +8,8 @@
 - 2.3.6.x asserted on domain controllers
 - 17.x audit policy collected from auditpol /backup by GUID, any display language
 - 17.x spec titles name the subcategory
+- 2.2.31 reported as skipped on hosts with IIS or ADFS
+- win_skip_for_test controls reported as skipped
 
 ## September 2026 - spec folders
 
