@@ -2577,7 +2577,7 @@
     "emitted": true,
     "gate": "win22cis_level_1",
     "file": "section_18/section_18.4/cis_18.4.4.yml",
-    "assertions": 1,
+    "assertions": 2,
     "resources": [
       "registry"
     ],
