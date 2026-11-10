@@ -8,6 +8,7 @@
 - 118 controls renumbered, spec folders moved to match
 - 18.9.17.1, 18.11.1 and 18.11.2 added
 - 17.8.1 asserts Success only
+- 18.9.41.1 expects Block
 - run_audit.ps1 benchmark version 5.1.1
 - README - v5.1.1 counts and control IDs
 

@@ -505,7 +505,7 @@ win22cis_public_firewall_log_path: '%SystemRoot%\System32\logfiles\firewall\publ
 win22cis_public_firewall_log_size: 16384
 win22cis_require_pin_for_pairing: 1
 win22cis_restrict_sending_ntlm_traffic: 1
-win22cis_roca_configuration: 1
+win22cis_roca_configuration: 2
 win22cis_sc_remove_option: 1
 win22cis_security_max_log_file_size: 196608
 win22cis_setup_max_log_file_size: 32768

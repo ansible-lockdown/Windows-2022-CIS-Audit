@@ -1,5 +1,5 @@
 {
-  "README.md": "f89ade925cdc5654c14b03232551979c48b897a6eebfcb56fa95f6d53173bbc0",
+  "README.md": "77952ce34133ec59513452daa0ff4e189c36dfb3c12708d780429229eb3e21a0",
   "collector_targets.json": "8e15b2d37a77c1143b96b03073a380bd8171138583fae665b214e8effaf94f48",
   "coverage.json": "f067f01ee7736bf33a2f0cc0d097827f8615d9806c1dcb9a70e515f49c8fb5af",
   "goss.yml": "1f3c27f944880e74c9a063cfe24ad8f7c4505547656726be5a950354d96707bf",
@@ -408,5 +408,5 @@
   "section_9/section_9.x/cis_9.3.7.yml": "7c3bf0ecee5055da0160e1dd8caa9ce08f8dac4d03b7426c636cbbbfbca3d645",
   "section_9/section_9.x/cis_9.3.8.yml": "dbd1f074d3d60b5a232e775ecbf5fa98fe37ba65c19edd35195a6b94a5f92dd0",
   "section_9/section_9.x/cis_9.3.9.yml": "a3baaf1822f2fc42c4d14c5bd47824d25f0f4f4c132f843a762b473b685a7e98",
-  "vars/CIS.yml": "60dd928ed5d70caa7d00c19f44aa05c35b47e6822b2c698bf987a0cff9d3702e"
+  "vars/CIS.yml": "e6a9daf282e0a3def9be453e395b4fe98cca9f81e97bf01d72d954d8e2b7932b"
 }
